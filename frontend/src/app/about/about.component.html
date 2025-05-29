@@ -1,0 +1,124 @@
+<section class="page-header section-sm">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 text-center">
+        <h1 class="section-title h2 mb-3">
+          <span>About</span>
+        </h1>
+        <ul class="list-inline breadcrumb-menu mb-3">
+          <li class="list-inline-item"><a [routerLink]="['/home']"><i class="ti ti-home"></i> <span>Home</span></a></li>
+          <li class="list-inline-item">• &nbsp; <span>About</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-10 text-center">
+        <h2 class="text-dark mb-4">Welcome to EasyArchi,<br> Your Ultimate Architecture Community.</h2>
+      </div>
+    </div>
+
+    
+    <!-- Carousel Section -->
+    <div class="py-5 my-3">
+      <div class="carousel-container">
+        <div class="carousel-inner" 
+             [style.transform]="'translateX(-' + (currentSlide * (100 / carouselImages.length)) + '%)'">
+          <div class="carousel-slide" 
+               *ngFor="let image of carouselImages; let i = index" 
+               [class.active]="i === currentSlide">
+            <div class="image-container">
+              <img [src]="image.src" 
+                   [alt]="image.alt" 
+                   class="carousel-image"
+                   (error)="handleImageError($event)">
+              <div class="caption">{{image.caption}}</div>
+            </div>
+          </div>
+        </div>
+        
+        <button class="carousel-control prev" (click)="prevSlide()">
+          <i class="ti ti-chevron-left"></i>
+        </button>
+        <button class="carousel-control next" (click)="nextSlide()">
+          <i class="ti ti-chevron-right"></i>
+        </button>
+        
+        <div class="carousel-indicators">
+          <button *ngFor="let image of carouselImages; let i = index" 
+                  [class.active]="i === currentSlide"
+                  (click)="setCurrentSlide(i)">
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col-lg-10 text-center">
+        <div class="content">
+          <p class="lead">EasyArchi is your go-to platform for everything architecture. We bring together architects from all over the world to share their ideas, projects, and knowledge. Our mission is to foster a vibrant community where professionals and enthusiasts can connect, collaborate, and inspire each other.</p>
+          <p>On EasyArchi, you can publish articles, showcase your projects, and interact with fellow architects. Whether you're looking to stay updated on the latest trends, find innovative solutions, or simply get inspired, EasyArchi is the place for you.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Team Section with Real MongoDB IDs -->
+    <div class="section-sm pb-0">
+      <div class="row justify-content-center">
+        <div class="col-lg-10 text-center">
+          <h2 class="section-title mb-5">
+            <span>Meet Our Architects</span>
+          </h2>
+
+          <!-- Loading State -->
+          <div *ngIf="loading" class="text-center py-5">
+            <div class="spinner-border text-primary" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+            <p class="mt-3">Loading architects from database...</p>
+          </div>
+
+          <!-- Architects Grid -->
+          <div *ngIf="!loading" class="row gx-4 gy-5 gx-md-5 justify-content-center">
+            <div class="col-lg-4 col-md-6 col-sm-6" 
+                 *ngFor="let architect of architects; let i = index">
+              <div class="architect-card">
+                <!-- Using REAL MongoDB ObjectId for routing -->
+                <a class="d-inline-block is-hoverable" [routerLink]="['/architect', architect._id]">
+                  <!-- Using static asset images for display -->
+                  <img class="img-fluid architect-image" 
+                       [src]="architect.src" 
+                       [alt]="architect.alt"
+                       (error)="handleImageError($event)">
+                  <h4 class="text-dark mt-4 mb-2">{{architect.name}} {{architect.lastname}}</h4>
+                  <p class="text-muted mb-0">{{architect.about}}</p>
+                  
+                  <!-- Debug info (remove in production) -->
+                  <small class="text-muted d-block mt-2" style="font-size: 0.75rem;">
+                    ID: {{architect._id.substring(0, 8)}}...
+                    <span *ngIf="architect.originalName" class="text-success">
+                      (DB: {{architect.originalName}} {{architect.originalLastname}})
+                    </span>
+                  </small>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Empty State -->
+          <div *ngIf="!loading && architects.length === 0" class="alert alert-warning">
+            <h5>No Architects Found</h5>
+            <p>Unable to load architect data. Please check backend connection.</p>
+            <button class="btn btn-primary" (click)="loadArchitects()">
+              🔄 Retry Loading
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

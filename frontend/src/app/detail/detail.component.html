@@ -1,0 +1,110 @@
+<!-- Loading State -->
+<div *ngIf="isLoading" class="loading-container fade-in">
+  <div class="spinner-border text-primary" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>
+
+<!-- Error State -->
+<div *ngIf="error" class="error-container fade-in">
+  <div class="error-content">
+    <h2>{{ error }}</h2>
+    <p>Unable to load the article. Please try again later.</p>
+    <div class="error-actions">
+      <button class="btn btn-primary" (click)="loadArticle(article?._id || '')">Try Again</button>
+      <a routerLink="/home" class="btn btn-secondary">Back to Home</a>
+    </div>
+  </div>
+</div>
+
+<!-- Article Content -->
+<section class="article-detail" *ngIf="!isLoading && !error && article">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <!-- Article Featured Image -->
+        <div class="article-image-wrapper fade-in">
+          <img [src]="getImageUrl(article.image)" 
+               [alt]="article.title"
+               class="article-image"
+               (error)="handleImageError($event)">
+        </div>
+               
+        <!-- Article Header -->
+        <header class="article-header fade-in">
+          <h1 class="article-title">{{article.title}}</h1>
+          
+          <div class="article-meta">
+            <div class="author-info" *ngIf="architect">
+              <a [routerLink]="['/architect', architect._id]" class="author-link">
+                <img [src]="getImageUrl(architect.image)" 
+                     [alt]="architect.name"
+                     class="author-image"
+                     (error)="handleImageError($event)">
+                <span class="author-name">{{architect.name}} {{architect.lastname}}</span>
+              </a>
+            </div>
+            <div class="article-info">
+              <span class="article-date">
+                <i class="ti ti-calendar"></i>
+                {{article.date | date:'mediumDate'}}
+              </span>
+            </div>
+          </div>
+        </header>
+
+        <!-- Article Content -->
+        <div class="article-content fade-in">
+          <div class="article-description">
+            <p>{{article.description}}</p>
+          </div>
+          
+          <div class="article-body" [innerHTML]="article.content"></div>
+
+          <!-- Article Tags -->
+          <div class="article-tags">
+            <span class="tags-label">Tags:</span>
+            <div class="tags-list">
+              <a *ngFor="let tag of article.tags" 
+                 class="tag"
+                 [routerLink]="['/home']"
+                 [queryParams]="{tag: tag}">
+                #{{tag}}
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="article-navigation fade-in">
+          <a routerLink="/home" class="back-link">
+            <i class="ti ti-arrow-left"></i>
+            Back to Articles
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Related Articles -->
+    <div class="row mt-5" *ngIf="relatedArticles?.length">
+      <div class="col-12">
+        <h3 class="related-title">Related Articles</h3>
+        <div class="related-articles">
+          <div class="row">
+            <div class="col-md-4" *ngFor="let related of relatedArticles">
+              <a [routerLink]="['/article', related._id]" class="related-article-card">
+                <img [src]="getImageUrl(related.image)" 
+                     [alt]="related.title"
+                     (error)="handleImageError($event)">
+                <div class="related-article-content">
+                  <h4>{{related.title}}</h4>
+                  <p>{{related.description}}</p>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

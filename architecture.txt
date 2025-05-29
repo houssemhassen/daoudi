@@ -1,0 +1,171 @@
+Archi tec
+│   backend
+│   ├── config
+│   │   └── connect.js
+│   ├── models
+│   │   ├── architect.js
+│   │   └── article.js
+│   ├── routes
+│   │   ├── architect.js
+│   │   └── article.js
+│   ├── uploads
+│   │   ├── 1718065324484.jpeg
+│   │   ├── 1718068558189.jpeg
+│   │   ├── 1718102013093.jpeg
+│   │   ├── 1718109495616.jpeg
+│   │   ├── 1718109587844.jpeg
+│   │   └── 1748360309318.png
+│   └── server.js
+│   frontend
+    ├── src
+    │   ├── app
+    │   │   ├── about
+    │   │   │   ├── about.component.css
+    │   │   │   ├── about.component.html
+    │   │   │   ├── about.component.spec.ts
+    │   │   │   └── about.component.ts
+    │   │   ├── architect
+    │   │   │   ├── architect.component.css
+    │   │   │   ├── architect.component.html
+    │   │   │   ├── architect.component.spec.ts
+    │   │   │   └── architect.component.ts
+    │   │   ├── createarticle
+    │   │   │   ├── createarticle.component.css
+    │   │   │   ├── createarticle.component.html
+    │   │   │   ├── createarticle.component.spec.ts
+    │   │   │   └── createarticle.component.ts
+    │   │   ├── detail
+    │   │   │   ├── detail.component.css
+    │   │   │   ├── detail.component.html
+    │   │   │   ├── detail.component.spec.ts
+    │   │   │   └── detail.component.ts
+    │   │   ├── home
+    │   │   │   ├── blog-list
+    │   │   │   │   ├── blog-list.component.css
+    │   │   │   │   ├── blog-list.component.html
+    │   │   │   │   ├── blog-list.component.spec.ts
+    │   │   │   │   └── blog-list.component.ts
+    │   │   │   ├── cover
+    │   │   │   │   ├── cover.component.css
+    │   │   │   │   ├── cover.component.html
+    │   │   │   │   ├── cover.component.spec.ts
+    │   │   │   │   └── cover.component.ts
+    │   │   │   ├── home.component.css
+    │   │   │   ├── home.component.html
+    │   │   │   ├── home.component.spec.ts
+    │   │   │   └── home.component.ts
+    │   │   ├── layout
+    │   │   │   ├── footer
+    │   │   │   │   ├── footer.component.css
+    │   │   │   │   ├── footer.component.html
+    │   │   │   │   ├── footer.component.spec.ts
+    │   │   │   │   └── footer.component.ts
+    │   │   │   └── header
+    │   │   │       ├── header.component.css
+    │   │   │       ├── header.component.html
+    │   │   │       ├── header.component.spec.ts
+    │   │   │       └── header.component.ts
+    │   │   ├── login
+    │   │   │   ├── login.component.css
+    │   │   │   ├── login.component.html
+    │   │   │   ├── login.component.spec.ts
+    │   │   │   └── login.component.ts
+    │   │   ├── notfound
+    │   │   │   ├── notfound.component.css
+    │   │   │   ├── notfound.component.html
+    │   │   │   ├── notfound.component.spec.ts
+    │   │   │   └── notfound.component.ts
+    │   │   ├── privacy
+    │   │   │   ├── privacy.component.css
+    │   │   │   ├── privacy.component.html
+    │   │   │   ├── privacy.component.spec.ts
+    │   │   │   └── privacy.component.ts
+    │   │   ├── register
+    │   │   │   ├── register.component.css
+    │   │   │   ├── register.component.html
+    │   │   │   ├── register.component.spec.ts
+    │   │   │   └── register.component.ts
+    │   │   ├── services
+    │   │   │   ├── auth.guard.spec.ts
+    │   │   │   ├── auth.guard.ts
+    │   │   │   ├── auth.service.spec.ts
+    │   │   │   ├── auth.service.ts
+    │   │   │   ├── data.service.spec.ts
+    │   │   │   └── data.service.ts
+    │   │   ├── app-routing.module.ts
+    │   │   ├── app.component.css
+    │   │   ├── app.component.html
+    │   │   ├── app.component.spec.ts
+    │   │   ├── app.component.ts
+    │   │   └── app.module.ts
+    │   ├── assets
+    │   │   ├── assets
+    │   │   │   ├── css
+    │   │   │   │   └── style.css
+    │   │   │   ├── images
+    │   │   │   │   ├── about
+    │   │   │   │   │   ├── alex.jpg
+    │   │   │   │   │   ├── badis.pdf
+    │   │   │   │   │   ├── BlueStacks10Installer_10.41.218.1001_native_59ec078624a8dc001241498dfc4a02b9_MzsxNSwwOzUsMTsxNSw0OzE1LA==.exe
+    │   │   │   │   │   ├── easyarchi-01.jpg
+    │   │   │   │   │   ├── easyarchi-02.jpg
+    │   │   │   │   │   ├── easyarchi-03.jpg
+    │   │   │   │   │   └── idman642build12.exe
+    │   │   │   │   ├── author
+    │   │   │   │   │   ├── 5520958.jpg
+    │   │   │   │   │   ├── emily-jones.jpg
+    │   │   │   │   │   ├── istockphoto-1463491574-612x612.jpg
+    │   │   │   │   │   ├── jane-doe.jpg
+    │   │   │   │   │   ├── john-smith.jpg
+    │   │   │   │   │   └── thomas-macaulay.jpg
+    │   │   │   │   ├── blog
+    │   │   │   │   │   ├── 01.jpg
+    │   │   │   │   │   ├── 02.jpg
+    │   │   │   │   │   ├── 03.jpg
+    │   │   │   │   │   ├── 04.jpg
+    │   │   │   │   │   ├── 05.jpg
+    │   │   │   │   │   ├── 06.jpg
+    │   │   │   │   │   ├── 07.jpg
+    │   │   │   │   │   ├── 08.jpg
+    │   │   │   │   │   └── 09.jpg
+    │   │   │   │   ├── favicon.png
+    │   │   │   │   └── logo.png
+    │   │   │   └── js
+    │   │   │       └── script.js
+    │   │   ├── plugins
+    │   │   │   ├── bootstrap
+    │   │   │   │   ├── bootstrap.min.css
+    │   │   │   │   └── bootstrap.min.js
+    │   │   │   ├── jquery
+    │   │   │   │   └── jquery.min.js
+    │   │   │   ├── lightense
+    │   │   │   │   └── lightense.min.js
+    │   │   │   └── tabler-icons
+    │   │   │       ├── fonts
+    │   │   │       │   ├── tabler-icons.eot
+    │   │   │       │   ├── tabler-icons.svg
+    │   │   │       │   ├── tabler-icons.ttf
+    │   │   │       │   ├── tabler-icons.woff
+    │   │   │       │   ├── tabler-icons.woff2
+    │   │   │       │   └── tabler-iconsd41d.eot
+    │   │   │       └── tabler-icons.min.css
+    │   │   └── .gitkeep
+    │   ├── environments
+    │   │   ├── environment.prod.ts
+    │   │   └── environment.ts
+    │   ├── favicon.ico
+    │   ├── index.html
+    │   ├── main.ts
+    │   ├── polyfills.ts
+    │   ├── styles.css
+    │   └── test.ts
+    ├── .browserslistrc
+    ├── .editorconfig
+    ├── angular.json
+    ├── karma.conf.js
+    ├── package-lock.json
+    ├── package.json
+    ├── README.md
+    ├── tsconfig.app.json
+    ├── tsconfig.json
+    └── tsconfig.spec.json

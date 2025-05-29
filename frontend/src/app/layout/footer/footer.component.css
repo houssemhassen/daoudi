@@ -1,0 +1,112 @@
+footer {
+    background-color: var(--surface-color);
+    padding: 3rem 0 2rem;
+    margin-top: 3rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.98);
+}
+
+footer.hidden {
+    transform: translateY(100%);
+    opacity: 0;
+    pointer-events: none;
+}
+
+footer.visible {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+/* Add margin to main content to prevent footer overlap */
+:host-context(app-root) {
+    display: block;
+    padding-bottom: calc(300px + 4rem); /* Approximate footer height + margin */
+}
+
+.section {
+    padding: 3rem 0;
+}
+
+.newsletter-block {
+    text-align: center;
+    padding: 2rem;
+    background-color: var(--background-color);
+    border-radius: 12px;
+    margin-bottom: 3rem;
+}
+
+.section-title {
+    color: var(--primary-color);
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+}
+
+.btn-primary {
+    background-color: var(--secondary-color);
+    border: none;
+    padding: 0.75rem 2rem;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.btn-primary i {
+    transition: transform 0.3s ease;
+}
+
+.btn-primary:hover i {
+    transform: translateX(2px);
+}
+
+.copyright-text {
+    color: var(--primary-color);
+    opacity: 0.8;
+    font-size: 0.9rem;
+}
+
+.footer-menu {
+    margin: 0;
+    padding: 0;
+}
+
+.footer-menu .list-inline-item {
+    padding: 0 1rem;
+    border-right: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.footer-menu .list-inline-item:last-child {
+    border-right: none;
+}
+
+.footer-menu a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+    font-size: 0.9rem;
+}
+
+.footer-menu a:hover {
+    color: var(--secondary-color);
+}
+
+@media (max-width: 991.98px) {
+    footer {
+        padding: 3rem 0 1.5rem;
+    }
+
+    .section {
+        padding: 2rem 0;
+    }
+
+    .footer-menu .list-inline-item {
+        padding: 0 0.5rem;
+    }
+}

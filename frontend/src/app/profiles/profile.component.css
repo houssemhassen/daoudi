@@ -1,0 +1,389 @@
+/* Profile Avatar Styling */
+.profile-avatar {
+  display: inline-block;
+  position: relative;
+}
+
+.profile-avatar img {
+  border: 4px solid #fff;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.profile-type-badge {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  z-index: 2;
+}
+
+.profile-type-badge .badge {
+  font-size: 0.75rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 20px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Image Upload Overlay */
+.image-upload-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 3;
+}
+
+.profile-avatar:hover .image-upload-overlay {
+  opacity: 1;
+}
+
+.image-upload-btn {
+  background: rgba(255, 255, 255, 0.9);
+  color: #333;
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.5rem;
+  transition: all 0.3s ease;
+  margin-right: 10px;
+}
+
+.image-upload-btn:hover {
+  background: white;
+  color: #007bff;
+  transform: scale(1.1);
+}
+
+.remove-image-btn {
+  background: rgba(220, 53, 69, 0.9);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
+}
+
+.remove-image-btn:hover {
+  background: #dc3545;
+  transform: scale(1.1);
+}
+
+/* Profile Edit Form */
+.profile-edit-form {
+  width: 100%;
+  max-width: 500px;
+}
+
+.profile-edit-form .form-control {
+  border-radius: 8px;
+  border: 1px solid #dee2e6;
+  padding: 0.75rem 1rem;
+  font-size: 0.95rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.profile-edit-form .form-control:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.profile-edit-form .form-label {
+  font-weight: 500;
+  color: #495057;
+  margin-bottom: 0.5rem;
+}
+
+.profile-edit-form textarea.form-control {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* Success Alert */
+.alert-success {
+  background-color: #d4edda;
+  border-color: #c3e6cb;
+  color: #155724;
+  border-radius: 8px;
+  margin-top: 60px; /* Account for fixed header */
+}
+
+/* Profile Info Section */
+.profile-info h1 {
+  font-weight: 700;
+  color: #2c3e50;
+}
+
+.profile-info .text-muted {
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.profile-info .text-muted i {
+  width: 20px;
+  text-align: center;
+}
+
+/* Profile Actions */
+.profile-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+  .profile-actions {
+    width: 100%;
+    margin-top: 1rem;
+  }
+  
+  .profile-actions .btn {
+    flex: 1;
+  }
+}
+
+/* Stats Cards */
+.stat-card {
+  padding: 1rem;
+  border-radius: 8px;
+  transition: transform 0.2s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+}
+
+.stat-card h4 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.stat-card p {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+/* Quick Actions Cards */
+.card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 12px;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15) !important;
+}
+
+.card .display-4 {
+  font-size: 3rem;
+}
+
+.card-title {
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.card-text {
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+/* Articles Section */
+.post-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.post-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12) !important;
+}
+
+.post-image {
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.post-image img {
+  transition: transform 0.3s ease;
+  object-fit: cover;
+  height: 200px;
+}
+
+.post-card:hover .post-image img {
+  transform: scale(1.05);
+}
+
+.post-title {
+  font-weight: 600;
+  color: #2c3e50;
+  font-size: 1.1rem;
+  line-height: 1.4;
+  transition: color 0.3s ease;
+}
+
+.post-title:hover {
+  color: #3498db;
+}
+
+/* Card Meta */
+.card-meta {
+  font-size: 0.85rem;
+  color: #6c757d;
+}
+
+.card-meta li {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.card-meta i {
+  font-size: 0.9rem;
+}
+
+/* Article Tags */
+.article-tags .badge {
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 0.25rem 0.5rem;
+}
+
+/* Article Actions */
+.article-actions .btn {
+  border-radius: 6px;
+  padding: 0.25rem 0.5rem;
+}
+
+.article-actions .btn i {
+  font-size: 0.9rem;
+}
+
+/* Empty State */
+.text-center .display-1 {
+  font-size: 4rem;
+  opacity: 0.5;
+}
+
+/* Responsive Design */
+@media (max-width: 576px) {
+  .profile-info h1 {
+    font-size: 1.5rem;
+  }
+  
+  .stat-card h4 {
+    font-size: 1.5rem;
+  }
+  
+  .card .display-4 {
+    font-size: 2.5rem;
+  }
+  
+  .post-image img {
+    height: 180px;
+  }
+}
+
+/* Loading and Error States */
+.spinner-border {
+  width: 3rem;
+  height: 3rem;
+}
+
+.alert {
+  border-radius: 10px;
+  border: none;
+  font-weight: 500;
+}
+
+.alert-danger {
+  background-color: #fef2f2;
+  color: #dc2626;
+}
+
+.alert-danger i {
+  color: #dc2626;
+}
+
+/* Section Backgrounds */
+.section-sm {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+.bg-light {
+  background-color: #f8f9fa !important;
+}
+
+/* Button Enhancements */
+.btn {
+  border-radius: 8px;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+.btn-lg {
+  padding: 0.75rem 2rem;
+  font-size: 1.1rem;
+}
+
+/* Custom scrollbar for article content preview */
+.post-card .card-body {
+  position: relative;
+}
+
+/* Ensure consistent card heights */
+.post-card.h-100 {
+  display: flex;
+  flex-direction: column;
+}
+
+.post-card .card-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.post-card .article-actions {
+  margin-top: auto;
+}
+
+/* Profile header spacing */
+.page-header {
+  margin-top: 60px; /* Account for fixed header */
+}
+
+/* Badge styling improvements */
+.badge.bg-primary {
+  background-color: #3498db !important;
+}
+
+.badge.bg-secondary {
+  background-color: #6c757d !important;
+}

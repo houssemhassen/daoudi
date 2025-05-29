@@ -1,0 +1,97 @@
+<header class="header-nav custom-cursor-pointer" [class.hidden]="!isNavbarVisible" [class.visible]="isNavbarVisible">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-12">
+        <nav class="navbar navbar-expand-lg navbar-light p-0">
+          <!-- logo -->
+          <div class="logo-wrapper">
+            <a class="navbar-brand font-weight-bold mb-0" routerLink="/home" title="EasyArchi">
+              <img class="img-fluid logo-image" src="assets/assets/images/logo.png" alt="EasyArchi">
+            </a>
+          </div>
+
+          <button class="search-toggle d-inline-block d-lg-none ms-auto me-1 me-sm-3" data-toggle="search" aria-label="Search Toggle">
+            <span>Search</span>
+            <svg width="22" height="22" stroke-width="1.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M15.5 15.5L19 19" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M5 11C5 14.3137 7.68629 17 11 17C12.6597 17 14.1621 16.3261 15.2483 15.237C16.3308 14.1517 17 12.654 17 11C17 7.68629 14.3137 5 11 5C7.68629 5 5 7.68629 5 11Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navHeader" aria-controls="navHeader" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="ti ti-menu-2 d-inline"></i>
+            <i class="ti ti-x d-none"></i>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navHeader">
+            <ul class="navbar-nav mx-auto">
+              <li class="nav-item">
+                <a class="nav-link" routerLink="/home" routerLinkActive="active">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" routerLink="/about" routerLinkActive="active">About</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" routerLink="/privacy" routerLinkActive="active">Privacy</a>
+              </li>
+              <ng-container *ngIf="!_auth.isLoggedIn()">
+                <li class="nav-item">
+                  <a class="nav-link" routerLink="/register" routerLinkActive="active">Register</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" routerLink="/login" routerLinkActive="active">Login</a>
+                </li>
+              </ng-container>
+              <ng-container *ngIf="_auth.isLoggedIn()">
+                <li class="nav-item account-dropdown-container">
+                  <a class="nav-link" (click)="toggleAccountDropdown($event)" role="button">
+                    My Account
+                    <i class="ms-1" [class]="showAccountDropdown ? 'ti ti-chevron-up' : 'ti ti-chevron-down'"></i>
+                  </a>
+                  
+                  <!-- Account Dropdown -->
+                  <div class="account-dropdown" [class.show]="showAccountDropdown" *ngIf="getUserData()">
+                    <div class="account-info">
+                      <div class="user-avatar">
+                        <i class="ti ti-user-circle"></i>
+                      </div>
+                      <div class="user-details">
+                        <h6 class="user-name">{{ getUserData()?.name }} {{ getUserData()?.lastname || '' }}</h6>
+                        <p class="user-email">{{ getUserData()?.email }}</p>
+                        <span class="user-type" [class]="getUserData()?.userType">
+                          {{ getUserData()?.userType === 'architect' ? 'Architect' : 'User' }}
+                        </span>
+                      </div>
+                    </div>
+                    
+                    <div class="account-actions" *ngIf="getUserData()?.about">
+                      <div class="about-section">
+                        <small class="text-muted">About:</small>
+                        <p class="about-text">{{ getUserData()?.about }}</p>
+                      </div>
+                    </div>
+                    
+                    <div class="dropdown-divider"></div>
+                    
+                    <div class="account-actions">
+                      <a href="#" class="dropdown-action" 
+                         routerLink="/profile" 
+                         (click)="showAccountDropdown = false">
+                        <i class="ti ti-settings"></i>
+                        Manage Account
+                      </a>
+                      <a href="#" class="dropdown-action logout-action" (click)="logout()">
+                        <i class="ti ti-logout"></i>
+                        Logout
+                      </a>
+                    </div>
+                  </div>
+                </li>
+              </ng-container>
+            </ul>
+          </div>
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>

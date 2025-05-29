@@ -1,0 +1,167 @@
+/* You can add global styles to this file, and also import other style files */
+:root {
+  /* Primary Colors */
+  --primary-color: #2c3e50;      /* Deep blue-gray */
+  --primary-color-rgb: 44, 62, 80;
+  --secondary-color: #3498db;    /* Bright blue */
+  --secondary-color-rgb: 52, 152, 219;
+  --accent-color: #e74c3c;       /* Coral red */
+  --accent-color-rgb: 231, 76, 60;
+  
+  /* Neutral Colors */
+  --background-color: #f5f6fa;   /* Light gray-blue */
+  --background-color-rgb: 245, 246, 250;
+  --surface-color: #ffffff;      /* White */
+  --surface-color-rgb: 255, 255, 255;
+  --text-primary: #2c3e50;       /* Dark blue-gray */
+  --text-secondary: #7f8c8d;     /* Medium gray */
+  
+  /* Status Colors */
+  --success-color: #27ae60;      /* Green */
+  --warning-color: #f1c40f;      /* Yellow */
+  --error-color: #e74c3c;        /* Red */
+  
+  /* UI Elements */
+  --card-shadow: 0 2px 4px rgba(44, 62, 80, 0.1);
+  --hover-shadow: 0 4px 8px rgba(44, 62, 80, 0.15);
+  
+  /* Transitions */
+  --transition-fast: 0.2s ease;
+  --transition-medium: 0.3s ease;
+  --transition-slow: 0.5s ease;
+  
+  /* Z-indices */
+  --z-header: 1000;
+  --z-footer: 900;
+  --z-modal: 1100;
+}
+
+/* Global Transitions */
+* {
+  transition: background-color var(--transition-fast),
+              border-color var(--transition-fast),
+              color var(--transition-fast),
+              transform var(--transition-fast),
+              box-shadow var(--transition-fast);
+}
+
+/* Smooth Scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--background-color);
+  color: var(--text-primary);
+  margin: 0;
+  padding: 0;
+  font-family: 'Work Sans', sans-serif;
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Fade In Animation */
+.fade-in {
+  animation: fadeIn var(--transition-medium);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Slide Up Animation */
+.slide-up {
+  animation: slideUp var(--transition-medium);
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Button Styles */
+.btn {
+  transition: all var(--transition-fast);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--hover-shadow);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+/* Card Hover Effects */
+.card {
+  transition: transform var(--transition-medium),
+              box-shadow var(--transition-medium);
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--hover-shadow);
+}
+
+/* Image Hover Effects */
+img {
+  transition: transform var(--transition-medium);
+}
+
+img:hover {
+  transform: scale(1.02);
+}
+
+/* Form Controls */
+.form-control {
+  transition: border-color var(--transition-fast),
+              box-shadow var(--transition-fast);
+}
+
+.form-control:focus {
+  box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+}
+
+/* Links */
+a {
+  transition: color var(--transition-fast);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--secondary-color);
+}
+
+/* Responsive Typography */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 1.75rem;
+  }
+  h2 {
+    font-size: 1.5rem;
+  }
+  h3 {
+    font-size: 1.25rem;
+  }
+  body {
+    font-size: 0.95rem;
+  }
+}

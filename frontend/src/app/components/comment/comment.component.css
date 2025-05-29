@@ -1,0 +1,26 @@
+.comments-section {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.comment-item {
+    transition: all 0.3s ease;
+}
+
+.comment-item:hover {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.btn-danger {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.comment-item:hover .btn-danger {
+    opacity: 1;
+}

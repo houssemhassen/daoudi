@@ -1,0 +1,52 @@
+.app-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    position: relative;
+}
+
+.main-content {
+    flex: 1 0 auto;
+    position: relative;
+    z-index: 1;
+    padding-top: 60px; /* Height of fixed header */
+    padding-bottom: 2rem;
+}
+
+/* Make header less obtrusive */
+app-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    height: 60px;
+    background-color: var(--surface-color);
+}
+
+/* Ensure the footer stays at the bottom */
+app-footer {
+    flex-shrink: 0;
+    position: relative;
+    z-index: 99;
+}
+
+/* Style cards and content areas */
+:host ::ng-deep .card {
+    border: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+:host ::ng-deep .card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Responsive container padding */
+@media (max-width: 768px) {
+    :host ::ng-deep .container {
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+    }
+}

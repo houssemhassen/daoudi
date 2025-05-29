@@ -1,0 +1,39 @@
+<!-- start of footer -->
+<footer [class.visible]="isFooterVisible" [class.hidden]="!isFooterVisible">
+    <div class="container">
+      <div class="section">
+        <div class="row justify-content-center align-items-center">
+          <div class="col-xl-6 col-lg-8 col-md-10">
+            <!-- newsletter block -->
+            <div class="newsletter-block">
+              <h2 class="section-title text-center mb-4">Join our architecture community</h2>
+              <div class="text-center">
+                <button *ngIf="!isLoggedIn" (click)="onJoinToday()" class="btn btn-primary" aria-label="Join Today">
+                  <i class="ti ti-user-plus me-2"></i>Join today
+                </button>
+                <a *ngIf="isLoggedIn" [routerLink]="['/create']" class="btn btn-primary">
+                  <i class="ti ti-pencil me-2"></i>Create an Article
+                </a>
+              </div>
+            </div>
+            <!-- newsletter block -->
+          </div>
+        </div>
+      </div>
+      <div class="pb-5">
+        <div class="row g-2 g-lg-4 align-items-center">
+          <div class="col-lg-6 text-center text-lg-start">
+            <p class="mb-0 copyright-text content">&copy;2024 EasyArchi. All rights reserved.</p>
+          </div>
+          <div class="col-lg-6 text-center text-lg-end">
+            <ul class="list-inline footer-menu">
+              <li class="list-inline-item m-0"><a [routerLink]="['/privacy']">Privacy Policy</a></li>
+              <li class="list-inline-item m-0"><a [routerLink]="['/about']">About</a></li>
+              <li class="list-inline-item m-0"><a [routerLink]="['/home']">Articles</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!-- end of footer -->

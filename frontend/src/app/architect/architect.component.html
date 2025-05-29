@@ -1,0 +1,121 @@
+<!-- Loading state -->
+<div class="container text-center py-5" *ngIf="isLoading">
+  <div class="spinner-border text-primary" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>
+
+<!-- Error state -->
+<div class="container py-5" *ngIf="error">
+  <div class="alert alert-danger d-flex align-items-center" role="alert">
+    <i class="ti ti-alert-circle me-2"></i>
+    <div>{{ error }}</div>
+  </div>
+</div>
+
+<!-- Content -->
+<ng-container *ngIf="!isLoading && !error && architect">
+  <section class="page-header section-sm">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-10">
+          <div class="row g-4 g-lg-5 text-center text-lg-start justify-content-center justify-content-lg-start">
+            <div class="col-lg-3 col-md-4 col-sm-5 col-6">              <img class="img-fluid rounded shadow" 
+                   [src]="'http://127.0.0.1:3001/getimage/' + architect.image" 
+                   [alt]="architect.name + ' profile'" 
+                   width="250" 
+                   height="250"
+                   (error)="handleImageError($event, 'profile')">
+            </div>
+            <div class="col-lg-9 col-md-12">
+              <p class="mb-2">
+                <span class="fw-bold text-black">{{articles.length}}</span> 
+                {{ articles.length === 1 ? 'Published post' : 'Published posts' }}
+              </p>
+              <h1 class="h3 text-dark mb-3">{{ architect.name + ' ' + architect.lastname }}</h1>
+              <div class="content">
+                <p class="text-muted">{{ architect.about || 'No bio available' }}</p>
+                <ng-container *ngIf="_auth.getUserType() === 'architect'">
+                  <button class="btn btn-primary" 
+                          routerLink="/create" 
+                          *ngIf="architect._id === (_auth.getArchitectDataFromToken()?.id)">
+                    <i class="ti ti-plus me-2"></i>Create new Article
+                  </button>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Articles Section -->
+  <!-- No articles message -->
+  <div class="container text-center py-5" *ngIf="articles.length === 0">
+    <div class="alert alert-info" role="alert">
+      <i class="ti ti-notes me-2"></i>
+      No articles published yet.
+    </div>
+  </div>
+
+  <!-- Articles list -->
+  <div class="container" *ngIf="articles.length > 0">
+    <div class="row gy-5 gx-4 g-xl-5">
+      <div class="col-lg-6" *ngFor="let article of articles">
+        <article class="card post-card h-100 border-0 shadow-sm">
+          <div class="card-body">
+            <a class="d-block" [routerLink]="['/detail', article._id]" [title]="article.title">
+              <div class="post-image position-relative">                <img class="w-100 h-auto rounded" 
+                     [src]="'http://127.0.0.1:3001/getimage/' + article.image" 
+                     [alt]="article.title" 
+                     width="970" 
+                     height="500"
+                     (error)="handleImageError($event, 'article')">
+              </div>
+            </a>
+            <ul class="card-meta list-inline mb-3">
+              <li class="list-inline-item mt-2">
+                <i class="ti ti-calendar-event"></i>
+                <span>{{ formatDate(article.date) }}</span>
+              </li>
+              <li class="list-inline-item mt-2">—</li>
+              <li class="list-inline-item mt-2">
+                <i class="ti ti-clock"></i>
+                <span>{{ getReadTime(article.content) }}</span>
+              </li>
+            </ul>
+            <a class="d-block text-decoration-none" [routerLink]="['/detail', article._id]" [title]="article.title">
+              <h3 class="mb-3 post-title text-dark">
+                {{ article.title }}
+              </h3>
+            </a>
+            <p class="text-muted">{{ article.description }}</p>
+          </div>
+          <div class="card-footer border-top-0 bg-transparent p-0">
+            <ul class="card-meta list-inline">
+              <li class="list-inline-item mt-2">
+                <a [routerLink]="['/architect', article.idArchitect]" class="card-meta-architect text-decoration-none">                  <img class="w-auto rounded-circle" 
+                       [src]="'http://127.0.0.1:3001/getimage/' + architect.image" 
+                       [alt]="architect.name" 
+                       width="26" 
+                       height="26"
+                       (error)="handleImageError($event, 'profile')">
+                  <span class="ms-2">{{ architect.name }}</span>
+                </a>
+              </li>
+              <li class="list-inline-item mt-2">•</li>
+              <li class="list-inline-item mt-2">
+                <ul class="card-meta-tag list-inline">
+                  <li class="list-inline-item small" *ngFor="let tag of article.tags">
+                    <span class="badge bg-light text-dark">{{ tag }}</span>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+</ng-container>
