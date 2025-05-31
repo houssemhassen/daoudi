@@ -149,5 +149,54 @@ router.post('/login', async (req, res) => {
     res.status(500).json({ message: 'Login failed' });
   }
 });
+router.put('/update/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { name, email } = req.body;
+        
+        // Check if user exists
+        const user = await User.findById(id);
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        // Check if email is already taken by another user
+        if (email !== user.email) {
+            const existingUser = await User.findOne({ email, _id: { $ne: id } });
+            if (existingUser) {
+                return res.status(400).json({ message: 'Email already exists' });
+            }
+        }
+
+        // Prepare update data
+        const updateData = {
+            name: name.trim(),
+            email: email.trim(),
+            updatedAt: new Date()
+        };
+
+        // Update user
+        const updatedUser = await User.findByIdAndUpdate(id, updateData, { new: true });
+
+        // Create new token with updated info
+        const token = jwt.sign(
+            { 
+                userId: updatedUser._id, 
+                email: updatedUser.email, 
+                name: updatedUser.name 
+            },
+            process.env.JWT_SECRET,
+            { expiresIn: '24h' }
+        );
+
+        res.json({
+            message: 'Profile updated successfully',
+            token
+        });
+    } catch (error) {
+        console.error('Update user error:', error);
+        res.status(500).json({ message: 'Error updating user profile', error: error.message });
+    }
+});
 
 module.exports = router;

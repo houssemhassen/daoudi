@@ -1,33 +1,98 @@
 <div class="container mt-4">
+    <h2 class="text-center mb-4">Create Article</h2>
 
-
-    <h2 class="text-center"> Create article  </h2>
-
-    <div class="col-6 mx-auto">
-
-     
-
-        <input  [(ngModel)]="article.title" type="text" class="form-control m-1" placeholder="title">
-        <ul>
-            <li *ngFor="let item of article.tags" > {{item}} </li>
-        </ul>
-        <div class="row m-1" >
-            <input  [(ngModel)]="tag" type="text" class="form-control w-75" placeholder="tag"> 
-            <button class="btn btn-dark w-25" (click)="article.tags.push(tag); tag= ''" >Add</button>
-    
-        </div>
-     
-        <input type="file" (change)="select($event)" class="form-control m-1" placeholder="image">
-        <textarea [(ngModel)]="article.description" title="" id="" cols="30" rows="4" placeholder="description" class="form-control m-1" ></textarea>
-
-        <div class="m-1">
-         <textarea  [(ngModel)]="article.content" [placeholder]="'Enter text here...'" ></textarea>
-
-        </div>
-
-        <button  (click)="create()" class="btn btn-dark form-control m-1">create</button>
-
-
+    <!-- Error Message -->
+    <div class="alert alert-danger" *ngIf="error">
+        <i class="ti ti-alert-circle me-2"></i>{{ error }}
     </div>
 
+    <div class="col-8 mx-auto">
+        <div class="card shadow">
+            <div class="card-body">
+                <!-- Title -->
+                <div class="mb-3">
+                    <label class="form-label">Article Title *</label>
+                    <input [(ngModel)]="article.title" 
+                           type="text" 
+                           class="form-control" 
+                           placeholder="Enter article title"
+                           [disabled]="isCreating">
+                </div>
+
+                <!-- Tags -->
+                <div class="mb-3">
+                    <label class="form-label">Tags</label>
+                    <div class="tags-display mb-2" *ngIf="article.tags.length > 0">
+                        <span *ngFor="let item of article.tags; let i = index" 
+                              class="badge bg-secondary me-2 mb-1">
+                            {{item}} 
+                            <button type="button" 
+                                    class="btn-close btn-close-white ms-2" 
+                                    (click)="removeTag(i)"
+                                    [disabled]="isCreating"></button>
+                        </span>
+                    </div>
+                    <div class="input-group">
+                        <input [(ngModel)]="tag" 
+                               type="text" 
+                               class="form-control" 
+                               placeholder="Add a tag"
+                               (keyup.enter)="addTag()"
+                               [disabled]="isCreating">
+                        <button class="btn btn-outline-primary" 
+                                (click)="addTag()"
+                                [disabled]="isCreating">Add</button>
+                    </div>
+                </div>
+
+                <!-- Image -->
+                <div class="mb-3">
+                    <label class="form-label">Article Image *</label>
+                    <input type="file" 
+                           (change)="select($event)" 
+                           class="form-control" 
+                           accept="image/*"
+                           [disabled]="isCreating">
+                    <div class="form-text">
+                        <i class="ti ti-info-circle me-1"></i>
+                        Supported formats: JPG, PNG, GIF (Max: 5MB)
+                    </div>
+                    <div *ngIf="image" class="mt-2 text-success">
+                        <i class="ti ti-check me-1"></i>Selected: {{ image.name }}
+                    </div>
+                </div>
+
+                <!-- Description -->
+                <div class="mb-3">
+                    <label class="form-label">Description *</label>
+                    <textarea [(ngModel)]="article.description" 
+                              class="form-control" 
+                              rows="3"
+                              placeholder="Brief description of your article"
+                              [disabled]="isCreating"></textarea>
+                </div>
+
+                <!-- Content -->
+                <div class="mb-4">
+                    <label class="form-label">Content *</label>
+                    <textarea [(ngModel)]="article.content" 
+                              class="form-control" 
+                              rows="8"
+                              placeholder="Write your article content here..."
+                              [disabled]="isCreating"></textarea>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="text-center">
+                    <button (click)="create()" 
+                            class="btn btn-primary btn-lg px-5"
+                            [disabled]="isCreating">
+                        <span *ngIf="isCreating" class="spinner-border spinner-border-sm me-2"></span>
+                        <i *ngIf="!isCreating" class="ti ti-plus me-2"></i>
+                        {{ isCreating ? 'Creating Article...' : 'Create Article' }}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

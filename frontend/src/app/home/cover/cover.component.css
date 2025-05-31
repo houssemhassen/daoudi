@@ -1,0 +1,14 @@
+/* Reduce bottom padding of the banner section */
+.section.banner {
+  padding-bottom: 1rem !important; /* Reduce bottom padding */
+}
+
+/* If you want to reduce overall banner height */
+.section.banner {
+  padding: 2rem 0 1rem 0 !important; /* Adjust top and bottom padding */
+}
+
+/* Alternative: Target the container if needed */
+.banner .container {
+  padding-bottom: 0;
+}

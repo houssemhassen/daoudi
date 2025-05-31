@@ -1,77 +1,75 @@
 require('dotenv').config();
 const express = require('express');
-const articleApi = require('./routes/article');
-const architectApi = require('./routes/architect');
-const userApi = require('./routes/user');
-const commentApi = require('./routes/comment');
 const cors = require('cors');
+const path = require('path');
+const fs = require('fs');
+
+// Import database connection first
 require('./config/connect');
 
 const app = express();
 
-// CORS configuration - IMPORTANT: Must be specific for development
-app.use(cors({
-  origin: ['http://localhost:4200', 'http://127.0.0.1:4200'],
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
-}));
-
+// Middleware
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cors());
+
+// Ensure uploads directory exists
+const uploadsDir = path.join(__dirname, 'uploads');
+if (!fs.existsSync(uploadsDir)) {
+  fs.mkdirSync(uploadsDir, { recursive: true });
+  console.log('📁 Created uploads directory');
+}
 
 // Serve static files from uploads directory
-app.use('/uploads', express.static('uploads'));
+app.use('/uploads', express.static(uploadsDir));
+app.use('/getimage', express.static(uploadsDir));
 
-// ROOT ENDPOINT - Frontend needs this to test connection
-app.get('/', (req, res) => {
-  res.json({ 
-    message: 'EasyArchi Backend Server is running!',
-    status: 'connected',
-    timestamp: new Date().toISOString(),
-    endpoints: {
-      users: '/user',
-      architects: '/architect', 
-      articles: '/article',
-      comments: '/comment'
-    }
-  });
-});
+// Import routes after database connection
+const articleApi = require('./routes/article');
+const architectApi = require('./routes/architect');
+const userApi = require('./routes/user');
+const commentApi = require('./routes/comment');
 
-// Health check endpoint
-app.get('/health', (req, res) => {
-  res.json({ 
-    status: 'healthy',
-    database: 'connected',
-    timestamp: new Date().toISOString()
-  });
-});
-
-// API Routes
+// Use routes
 app.use('/article', articleApi);
 app.use('/architect', architectApi);
 app.use('/user', userApi);
 app.use('/comment', commentApi);
 
-// Error handling middleware
-app.use((err, req, res, next) => {
-  console.error('Server Error:', err);
-  res.status(500).json({ 
-    message: 'Internal server error',
-    error: process.env.NODE_ENV === 'development' ? err.message : 'Something went wrong'
+// Health check endpoint
+app.get('/health', (req, res) => {
+  res.json({ 
+    status: 'Server is running', 
+    timestamp: new Date().toISOString(),
+    port: process.env.PORT || 3001
   });
 });
 
 // 404 handler
 app.use('*', (req, res) => {
-  res.status(404).json({ 
-    message: `Endpoint ${req.originalUrl} not found`,
-    availableEndpoints: ['/user', '/architect', '/article', '/comment']
-  });
+  res.status(404).json({ message: 'Endpoint not found' });
 });
 
-const PORT = process.env.PORT || 3001; 
+// Error handling middleware
+app.use((error, req, res, next) => {
+  console.error('Server Error:', error);
+  
+  if (error.code === 'LIMIT_FILE_SIZE') {
+    return res.status(400).json({ message: 'File size too large. Maximum size is 5MB.' });
+  }
+  
+  if (error.message === 'Only image files are allowed') {
+    return res.status(400).json({ message: 'Only image files are allowed' });
+  }
+  
+  res.status(500).json({ message: 'Internal server error' });
+});
+
+const PORT = process.env.PORT || 3001;
+
 app.listen(PORT, () => {
-    console.log('Server is running on port ' + PORT);
-    console.log(`Health check: http://localhost:${PORT}/health`);
-    console.log(`Available at: http://localhost:${PORT}/`);
+  console.log(`🚀 Server is running on port ${PORT}`);
+  console.log(`📋 Health check: http://localhost:${PORT}/health`);
+  console.log(`🌐 Available at: http://localhost:${PORT}/`);
 });

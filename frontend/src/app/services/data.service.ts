@@ -75,12 +75,13 @@ export class DataService {
       );
   }
 
-  createWithFormData(formData: FormData): Observable<Article> {
-    return this.http.post<Article>(this.articleUrl + 'ajout', formData)
-      .pipe(
-        catchError(this.handleError)
-      );
-  }
+  createWithFormData(formData: FormData, headers?: any): Observable<Article> {
+  const httpOptions = headers ? { headers } : {};
+  return this.http.post<Article>(this.articleUrl + 'ajout', formData, httpOptions)
+    .pipe(
+      catchError(this.handleError)
+    );
+}
 
   getAll(): Observable<Article[]> {
     return this.http.get<Article[]>(this.articleUrl + 'all')

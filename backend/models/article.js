@@ -1,6 +1,6 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
-const Article = mongoose.model('Article', {
+const articleSchema = new mongoose.Schema({
     title: {
         type: String,
         required: true
@@ -41,6 +41,8 @@ const Article = mongoose.model('Article', {
         type: Date,
         default: Date.now
     }
-})
+});
+
+const Article = mongoose.model('Article', articleSchema);
 
 module.exports = Article;

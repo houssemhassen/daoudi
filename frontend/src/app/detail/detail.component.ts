@@ -30,33 +30,49 @@ export class DetailComponent implements OnInit {
   }
 
   getImageUrl(imagePath: string): string {
-    if (!imagePath) {
-      return 'assets/assets/images/default-article.svg';
-    }
-    
-    if (imagePath.startsWith('http') || imagePath.startsWith('data:')) {
-      return imagePath;
-    }    // Check if it's an architect image
-    if (this.architect && imagePath === this.architect.image) {
-      if (imagePath.includes('uploads/')) {
-        return `http://127.0.0.1:3001/uploads/${imagePath}`;
-      }
-      return `assets/assets/images/architect/${imagePath}`;
-    }
-
-    // Check if the image is from uploads folder (for article images)
-    if (imagePath.includes('uploads/')) {
+  if (!imagePath) {
+    return 'assets/assets/images/default-article.svg';
+  }
+  
+  // If it's already a full URL, return as is
+  if (imagePath.startsWith('http') || imagePath.startsWith('data:')) {
+    return imagePath;
+  }
+  
+  // If it starts with 'article-' (our uploaded files)
+  if (imagePath.startsWith('article-')) {
+    return `http://127.0.0.1:3001/uploads/${imagePath}`;
+  }
+  
+  // Check if it's an architect image
+  if (this.architect && imagePath === this.architect.image) {
+    if (imagePath.startsWith('architect-')) {
       return `http://127.0.0.1:3001/uploads/${imagePath}`;
     }
-
-    // Handle images from specific asset folders
-    if (imagePath.startsWith('blog/')) {
-      return `assets/assets/images/${imagePath}`;
+    if (imagePath.includes('uploads/')) {
+      return `http://127.0.0.1:3001/${imagePath}`;
     }
-
-    // Default to blog images in assets folder
-    return `assets/assets/images/blog/${imagePath}`;
+    return `assets/assets/images/architect/${imagePath}`;
   }
+  
+  // If it contains 'uploads/' in the path
+  if (imagePath.includes('uploads/')) {
+    return `http://127.0.0.1:3001/${imagePath}`;
+  }
+  
+  // If it's just a filename without path, assume it's uploaded
+  if (!imagePath.includes('/') && imagePath.includes('.')) {
+    return `http://127.0.0.1:3001/uploads/${imagePath}`;
+  }
+  
+  // If it starts with 'blog/' (asset images)
+  if (imagePath.startsWith('blog/')) {
+    return `assets/assets/images/${imagePath}`;
+  }
+  
+  // Default to blog images in assets folder
+  return `assets/assets/images/blog/${imagePath}`;
+}
 
   handleImageError(event: Event): void {
     const img = event.target as HTMLImageElement;

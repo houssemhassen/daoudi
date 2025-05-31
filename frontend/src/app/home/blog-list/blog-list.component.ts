@@ -37,24 +37,37 @@ export class BlogListComponent implements OnInit {
     return this.auth.isLoggedIn();
   }
 
-  getImageUrl(imagePath: string): string {
-    if (!imagePath) return 'assets/assets/images/default-article.svg';
-    
-    if (imagePath.startsWith('http') || imagePath.startsWith('data:')) {
-      return imagePath;
-    }    // Check if the image is from uploads folder
-    if (imagePath.includes('uploads/')) {
-      return `http://127.0.0.1:3001/uploads/${imagePath}`;
-    }
-
-    // Handle images from assets/blog folder
-    if (imagePath.startsWith('blog/')) {
-      return `assets/assets/images/${imagePath}`;
-    }
-
-    // Default to assets/images/blog folder
-    return `assets/assets/images/blog/${imagePath}`;
+getImageUrl(imagePath: string): string {
+  if (!imagePath) return 'assets/assets/images/default-article.svg';
+  
+  // If it's already a full URL, return as is
+  if (imagePath.startsWith('http') || imagePath.startsWith('data:')) {
+    return imagePath;
   }
+  
+  // If it starts with 'article-' (our uploaded files)
+  if (imagePath.startsWith('article-')) {
+    return `http://127.0.0.1:3001/uploads/${imagePath}`;
+  }
+  
+  // If it contains 'uploads/' in the path
+  if (imagePath.includes('uploads/')) {
+    return `http://127.0.0.1:3001/${imagePath}`;
+  }
+  
+  // If it's just a filename without path, assume it's uploaded
+  if (!imagePath.includes('/') && imagePath.includes('.')) {
+    return `http://127.0.0.1:3001/uploads/${imagePath}`;
+  }
+  
+  // If it starts with 'blog/' (asset images)
+  if (imagePath.startsWith('blog/')) {
+    return `assets/assets/images/${imagePath}`;
+  }
+  
+  // Default to assets/images/blog folder
+  return `assets/assets/images/blog/${imagePath}`;
+}
 
   handleImageError(event: Event): void {
     const img = event.target as HTMLImageElement;
